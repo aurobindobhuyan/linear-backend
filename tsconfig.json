@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "allowJs": true,
+    "checkJs": true,
+    "rootDir": "./",
+    "outDir": "./build",
+    "lib": ["es6", "es2020", "dom"],
+    "esModuleInterop": true,
+    "module": "commonJs",
+    "jsx": "react",
+    "paths": {
+      "@helpers/*": ["./src/utils/helpers/*"],
+      "@loggers/*": ["./src/utils/logger/*"],
+      "@routers/*": ["./src/routes/*"],
+      "@userController/*": ["./src/controllers/users/*"],
+      "@noteController/*": ["./src/controllers/notes/*"],
+      "@models/*": ["./src/models/*"],
+      "@config/*": ["./src/config/*"]
+    },
+  }
+}

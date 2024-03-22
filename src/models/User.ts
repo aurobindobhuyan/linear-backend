@@ -1,4 +1,4 @@
-import { model, Schema, Document, LeanDocument } from "mongoose";
+import { model, Schema } from "mongoose";
 
 interface IUserSchema {
   username: string;
@@ -8,10 +8,7 @@ interface IUserSchema {
   roles: string;
 }
 
-export interface UserDocument extends Document, IUserSchema {}
-export type LeanedUserDocument = LeanDocument<UserDocument>;
-
-const userSchema = new Schema(
+const userSchema = new Schema<IUserSchema>(
   {
     username: {
       type: String,
@@ -40,5 +37,5 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-const User = model<UserDocument>("User", userSchema);
+const User = model<IUserSchema>("User", userSchema);
 export default User;

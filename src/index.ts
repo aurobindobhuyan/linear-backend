@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import { connectMongoDb } from "./config/database";
 import { logError, logInfo, logWarning } from "./utils/logger/logger";
 import { globalErrorHandler } from "./utils/helper/errorHandlers";
+import { RouteNotFound } from "./utils/helper/errorInstances";
 
 dotenv.config();
 const app = express();
@@ -42,7 +43,7 @@ app.use(
     });
 
     app.use("*", (req: Request, res: Response) => {
-      throw new Error(`Can't find ${req.originalUrl} on the server!`);
+      new RouteNotFound(`Can't find ${req.originalUrl} on the server!`);
     });
     app.use(globalErrorHandler);
   } catch (error) {

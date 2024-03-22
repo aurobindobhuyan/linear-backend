@@ -1,23 +1,65 @@
 import { Request, Response } from "express";
-import { AsyncHandler } from "../../utils/helper/errorHandlers";
-import * as service from "./services";
+import { asyncErrorHandler } from "../../utils/helper/errorHandlers";
+import * as services from "./services";
 
-export const getAllUsers = AsyncHandler(
-  async (req: Request, res: Response) => {}
+//* GET ALL THE USERS
+export const getAllUser = asyncErrorHandler(
+  async (req: Request, res: Response) => {
+    const fetchAllUsers = await services.getAllUser();
+    res.json(fetchAllUsers);
+  }
 );
 
-export const getOneUser = AsyncHandler(
-  async (req: Request, res: Response) => {}
+export const listAll = asyncErrorHandler(
+  async (req: Request, res: Response) => {
+    const { limit, page } = req.query;
+    const response = await services.listAll({ page, limit });
+
+    res.json(response);
+  }
 );
 
-export const createUser = AsyncHandler(
-  async (req: Request, res: Response) => {}
+//* CREATING A NEW USER
+export const createUser = asyncErrorHandler(
+  async (req: Request, res: Response) => {
+    const { username, email, password } = req.body;
+
+    const createdUser = await services.createUser({
+      username,
+      email,
+      password,
+    });
+    return res.json(createdUser);
+  }
 );
 
-export const updateUser = AsyncHandler(
-  async (req: Request, res: Response) => {}
+//* UPDATING AN EXISTING USER
+export const updateUser = asyncErrorHandler(
+  async (req: Request, res: Response) => {
+    const { userId: id } = req.params;
+    const { username, roles, active } = req.body;
+
+    const result = await services.updateUser({ id, username, roles, active });
+    res.json(result);
+  }
 );
 
-export const deleteUser = AsyncHandler(
-  async (req: Request, res: Response) => {}
+//* DELETING AN USER
+export const deleteUser = asyncErrorHandler(
+  async (req: Request, res: Response) => {
+    const { userId: id } = req.params;
+
+    const result = await services.deleteUser({ id });
+    res.json(result);
+  }
+);
+
+//* GET ONE USER DETAILS
+export const getOneUser = asyncErrorHandler(
+  async (req: Request, res: Response) => {
+    const { userId: id } = req.params;
+
+    const result = await services.getOneUser({ id });
+    res.json(result);
+  }
 );

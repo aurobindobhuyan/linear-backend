@@ -1,25 +1,25 @@
-import { Types, Schema, model, Document, LeanDocument } from "mongoose";
+import { Schema, model } from "mongoose";
 
 interface ICollection {
-   noteId: Types.ObjectId;
-   counter: number;
+  noteId: Schema.Types.ObjectId;
+  counter: number;
 }
 
-export interface CollectionModel extends Document, ICollection { };
-export type LeanedCollectionDocument = LeanDocument<CollectionModel>;
-
-const counterSchema = new Schema({
-   noteId: {
-      type: Types.ObjectId,
+const counterSchema = new Schema<ICollection>(
+  {
+    noteId: {
+      type: Schema.Types.ObjectId,
       ref: "Notes",
       required: true,
-   },
-   counter: {
+    },
+    counter: {
       type: Number,
       default: 100,
-   },
-}, { timestamps: false });
+    },
+  },
+  { timestamps: false }
+);
 
-const Counter = model<CollectionModel>("Counter", counterSchema);
+const Counter = model<ICollection>("Counter", counterSchema);
 
 export default Counter;

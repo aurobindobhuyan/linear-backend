@@ -1,6 +1,6 @@
 import express from "express";
 import * as notes from "../controllers/notes/notesController";
-import * as validator from "../controllers/notes/notesValidator";
+import * as validator from "../controllers/notes/validator";
 import verifyJWT from "../controllers/verifyJWT";
 
 const router = express.Router();
